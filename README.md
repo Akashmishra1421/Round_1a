@@ -52,16 +52,30 @@ docker build --platform linux/amd64 -t pdf-outline-extractor:latest .
 ```
 
 ### Run the Container
+
+#### On Windows (Git Bash/Command Prompt):
 ```bash
-docker run --rm -v $(pwd)/input:/app/input -v $(pwd)/output:/app/output --network none pdf-outline-extractor:latest
+docker run --rm -v "F:\Adobe-Challenge\Challenge_1a\sample_dataset":/app/sample_dataset --network none pdf-outline-extractor:latest
+```
+
+#### On Linux/macOS:
+```bash
+docker run --rm -v $(pwd)/sample_dataset:/app/sample_dataset --network none pdf-outline-extractor:latest
 ```
 
 ### Usage Steps
-1. Create an `input/` directory in your project folder
-2. Place PDF files in the `input/` directory
-3. Run the Docker container using the command above
-4. JSON output files will be generated in the `output/` directory
-5. Each PDF file `filename.pdf` produces a corresponding `filename.json`
+1. Place PDF files in the `sample_dataset/pdfs/` directory
+2. Run the Docker container using the appropriate command above for your operating system
+3. JSON output files will be generated in the `sample_dataset/outputs/` directory
+4. Each PDF file `filename.pdf` produces a corresponding `filename.json`
+
+### Local Development
+You can also run the script directly without Docker:
+```bash
+python process_pdfs.py
+```
+
+This will process PDFs from `sample_dataset/pdfs/` and output JSON files to `sample_dataset/outputs/`.
 
 ## Output Format
 
@@ -117,11 +131,13 @@ The system generates JSON files with the following structure:
 ├── requirements.txt
 ├── process_pdfs.py
 ├── README.md
-├── input/              # Place PDF files here
-├── output/             # JSON outputs generated here
-└── sample_dataset/
-    └── schema/
-        └── output_schema.json
+├── sample_dataset/
+│   ├── pdfs/
+│   │   └── ... (place your PDF files here)
+│   ├── outputs/
+│   │   └── ... (output JSON files will be generated here)
+│   └── schema/
+│       └── output_schema.json
 ```
 
 ## License
